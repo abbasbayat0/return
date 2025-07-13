@@ -1,22 +1,40 @@
-import List from "./components/List";
-import data from "../data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Loading from "./components/Loading";
+import Tours from "./components/Tours";
 
-function App() {
-  const [people, setPeople] = useState(data);
-  return (
-    <div className="flex justify-center items-center flex-col gap-1">
-      <List data={people} />
-      <button
-        className="mt-4 font-bold border-2 p-1 rounded-2xl"
-        onClick={() => {
-          people.length === 0 ? setPeople(data) : setPeople([]);
-        }}
-      >
-        {people.length === 0 ? "Reset" : "Clear All"}
-      </button>
-    </div>
-  );
-}
+const App = () => {
+  const url = "https://www.course-api.com/react-tours-project";
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [tours, setTours] = useState([]);
+
+  const fetchTours = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(url);
+      const tours = await response.json();
+      setTours(tours);
+    } catch (error) {
+      console.log(`there is a problem : ${error}`);
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchTours();
+  }, []);
+
+  const removeTour = (id) => {
+    const newTours = tours.filter((tour) => {
+      tour.id !== id;
+    });
+    setTours(newTours);
+  };
+
+  if (isLoading) {
+    return <Loading />;
+  }
+  return <Tours tours={tours} remove={removeTour} />;
+};
 
 export default App;

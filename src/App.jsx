@@ -26,11 +26,21 @@ const App = () => {
 
   const removeTour = (id) => {
     const newTours = tours.filter((tour) => tour.id !== id);
-    setTours(newTours)
+    setTours(newTours);
   };
 
   if (isLoading) {
     return <Loading />;
+  }
+  if (tours.length === 0) {
+    return (
+      <div
+        className="animate-bounce text-2xl text-red-500"
+        onClick={() => fetchTours()}
+      >
+        Re-Fetch
+      </div>
+    );
   }
   return <Tours tours={tours} remove={removeTour} />;
 };

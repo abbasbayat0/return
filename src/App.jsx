@@ -25,10 +25,8 @@ const App = () => {
   }, []);
 
   const removeTour = (id) => {
-    const newTours = tours.filter((tour) => {
-      tour.id !== id;
-    });
-    setTours(newTours);
+    const newTours = tours.filter((tour) => tour.id !== id);
+    setTours(newTours)
   };
 
   if (isLoading) {

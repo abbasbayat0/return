@@ -1,50 +1,56 @@
-import { useEffect, useState } from "react";
-import Loading from "./components/Loading";
-import Tours from "./components/Tours";
-import useFetch from "./hooks/useFetch";
+import { useState } from "react";
+import data from "../data";
+// import useCheck from "./hooks/useCheck";
 
 const App = () => {
-  const url = "https://www.course-api.com/react-tours-project";
+  const [index, setIndex] = useState(0);
+  const { id, name, age } = data[index];
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [tours, setTours] = useState([]);
-  const fetchTours = useFetch(url, setIsLoading, setTours)
+  // const check = useCheck(data);
 
-  // const fetchTours = async () => {
-  //   setIsLoading(true);
-  //   try {
-  //     const response = await fetch(url);
-  //     const tours = await response.json();
-  //     setTours(tours);
-  //   } catch (error) {
-  //     console.log(`there is a problem : ${error}`);
-  //   }
-  //   setIsLoading(false);
-  // };
-
-  useEffect(() => {
-    fetchTours();
-  }, []);
-
-  const removeTour = (id) => {
-    const newTours = tours.filter((tour) => tour.id !== id);
-    setTours(newTours);
+  const prev = () => {
+    setIndex((current) => {
+      const newIndex = (current - 1 + data.length) % data.length;
+      // return check(newIndex);
+      return newIndex;
+    });
+  };
+  const next = () => {
+    setIndex((current) => {
+      const newIndex = (current + 1) % data.length;
+      // return check(newIndex);
+      return newIndex;
+    });
+  };
+  const random = () => {
+    setIndex((current) => {
+      let randomNumber = Math.floor(Math.random() * data.length);
+      if (randomNumber === current) {
+        randomNumber = randomNumber + 1;
+      }
+      // return check(randomNumber);
+      return randomNumber % data.length;
+    });
   };
 
-  if (isLoading) {
-    return <Loading />;
-  }
-  if (tours.length === 0) {
-    return (
-      <div
-        className="animate-bounce text-2xl text-red-500"
-        onClick={() => fetchTours()}
-      >
-        Re-Fetch
+  return (
+    <div className="flex flex-col justify-center items-center">
+      <p>{id}</p>
+      <p>{name}</p>
+      <p>{age}</p>
+      <div className="flex gap-3 mt-10">
+        <p onClick={() => prev()} className="cursor-pointer select-none">
+          prev
+        </p>
+        <p onClick={() => next()} className="cursor-pointer select-none">
+          next
+        </p>
       </div>
-    );
-  }
-  return <Tours tours={tours} remove={removeTour} />;
+      <p onClick={() => random()} className="cursor-pointer select-none">
+        random
+      </p>
+    </div>
+  );
 };
 
 export default App;

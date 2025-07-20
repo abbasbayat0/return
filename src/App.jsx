@@ -15,7 +15,10 @@ const App = () => {
     setItems([...items, newItem]);
   };
 
-  const removeItem = (id) => {};
+  const removeItem = (id) => {
+    const filtered = items.filter((item) => item.id !== id);
+    setItems(filtered);
+  };
 
   return (
     <div>

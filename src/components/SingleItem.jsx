@@ -12,7 +12,7 @@ const SingleItem = ({ item, removeItem }) => {
       <p className={`${isChecked ? "line-through" : "font-bold "}`}>
         {item.name}
       </p>
-      <button onClick={removeItem(item.id)} className="text-red-400">
+      <button onClick={() => removeItem(item.id)} className="text-red-400">
         delete
       </button>
     </div>

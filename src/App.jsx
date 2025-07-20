@@ -1,5 +1,13 @@
+import { useState } from "react";
+import Form from "./components/Form";
+
 const App = () => {
-  return <div>App</div>;
+  const [items, setItems] = useState([]);
+  return (
+    <div>
+      <Form />
+    </div>
+  );
 };
 
 export default App;

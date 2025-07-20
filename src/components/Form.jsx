@@ -1,15 +1,27 @@
 import { useState } from "react";
 
-const Form = () => {
+const Form = ({ addItems }) => {
+  const [newItem, setNewItem] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e);
+    if (newItem) {
+      addItems(newItem);
+      setNewItem("");
+    }
   };
-  const [newItem, setNewItem] = useState("");
+
   return (
     <div>
       <form onSubmit={handleSubmit} className="flex gap-5">
-        <input type="text" className="bg-pink-200 rounded-2xl" />
+        <input
+          type="text"
+          value={newItem}
+          onChange={(e) => {
+            setNewItem(e.target.value);
+          }}
+          className="bg-pink-200 rounded-2xl"
+        />
         <button type="submit">submit</button>
       </form>
     </div>

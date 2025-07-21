@@ -2,6 +2,7 @@ import { useState } from "react";
 import Form from "./components/Form";
 import { v4 } from "uuid";
 import Items from "./components/Items";
+import { toast, ToastContainer } from "react-toastify";
 
 const setLocalStorage = (items) => {
   localStorage.setItem("list", JSON.stringify(items));
@@ -35,13 +36,21 @@ const App = () => {
 
   const removeItem = (id) => {
     const filtered = items.filter((item) => item.id !== id);
+
+    // show deleted item name
+    const item = items.filter((item) => item.id === id);
+    toast.success(`${item[0]?.name} deleted`);
     setItems(filtered);
+
     setLocalStorage(filtered);
   };
 
   const complete = (id) => {
     const newItems = items.map((item) => {
       if (item.id === id) {
+        toast.success(
+          `${item.completed ? `do ${item.name}` : `${item.name} done !`}`
+        );
         return { ...item, completed: !item.completed };
       }
       return item;
@@ -54,6 +63,7 @@ const App = () => {
     <div>
       <Form addItems={addItems} />
       <Items items={items} removeItem={removeItem} complete={complete} />
+      <ToastContainer position="top-center" autoClose={2000} />
     </div>
   );
 };

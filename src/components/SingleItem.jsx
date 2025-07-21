@@ -1,15 +1,12 @@
-import { useState } from "react";
-
-const SingleItem = ({ item, removeItem }) => {
-  const [isChecked, setIsChecked] = useState(item.completed);
+const SingleItem = ({ item, removeItem, complete }) => {
   return (
     <div className="mt-10 flex justify-around">
       <input
         type="checkbox"
-        checked={isChecked}
-        onChange={() => setIsChecked(!isChecked)}
+        checked={item.completed}
+        onChange={() => complete(item.id)}
       />
-      <p className={`${isChecked ? "line-through" : "font-bold "}`}>
+      <p className={`${item.completed ? "line-through" : "font-bold "}`}>
         {item.name}
       </p>
       <button onClick={() => removeItem(item.id)} className="text-red-400">

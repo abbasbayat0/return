@@ -1,4 +1,4 @@
-import links from "../../data";
+import links from "../data";
 import useGlobalContext from "../hook/useGlobalContext";
 
 const Sidebar = () => {

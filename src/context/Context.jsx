@@ -7,8 +7,12 @@ export const AppProvider = ({ children }) => {
   const openSidebar = () => setIsSidebarOpen(true);
   const closeSidebar = () => setIsSidebarOpen(false);
 
+  const [pageID, setPageID] = useState(null);
+
   return (
-    <AppContext.Provider value={{ isSidebarOpen, openSidebar, closeSidebar }}>
+    <AppContext.Provider
+      value={{ isSidebarOpen, openSidebar, closeSidebar, pageID, setPageID }}
+    >
       {children}
     </AppContext.Provider>
   );

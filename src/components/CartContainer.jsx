@@ -1,20 +1,24 @@
-import cartItems from "../../data";
 import CartItem from "./CartItem";
+import useGlobalContext from "./hooks/useGlobalContext";
 
 const CartContainer = () => {
-  if (!cartItems.length) return <p>the bag is empty</p>;
+  const { cart, clearAll } = useGlobalContext();
+  const cartArray = Array.from(cart.values());
 
+  if (!cartArray.length) {
+    return <p>the bag is empty</p>;
+  }
   return (
     <div className="flex flex-col">
       <div className="flex flex-col justify-center items-center mt-5 gap-10">
-        {cartItems.map((cartItem) => {
-          return <CartItem kay={cartItem.id} {...cartItem} />;
+        {cartArray.map((cartItem) => {
+          return <CartItem key={cartItem.id} {...cartItem} />;
         })}
       </div>
       <div className="flex justify-around mt-5">
         <button
           className="cursor-pointer border p-1 rounded-3xl shadow-2xl hover:border-2"
-          onClick={() => console.log("clear all")}
+          onClick={clearAll}
         >
           Clear All
         </button>

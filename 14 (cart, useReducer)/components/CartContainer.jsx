@@ -1,12 +1,12 @@
 import CartItem from "./CartItem";
-import useGlobalContext from "./hooks/useGlobalContext";
+import useGlobalContext from "../hooks/useGlobalContext";
 
 const CartContainer = () => {
-  const { cart, clearAll } = useGlobalContext();
+  const { cart, clearAll, totalPrice } = useGlobalContext();
   const cartArray = Array.from(cart.values());
-
-  if (!cartArray.length) {
-    return <p>the bag is empty</p>;
+  console.log(cartArray);
+  if (cartArray.length === 0) {
+    return <p className="capitalize flex justify-center items-center">the bag is empty</p>;
   }
   return (
     <div className="flex flex-col">
@@ -23,7 +23,7 @@ const CartContainer = () => {
           Clear All
         </button>
         <p className="select-none text-sm p-1 rounded-4xl flex items-center justify-center bg-green-300">
-          Cost: 0$
+          Cost: {totalPrice.toFixed(2)}$
         </p>
       </div>
     </div>

@@ -1,7 +1,7 @@
-import useGlobalContext from "./hooks/useGlobalContext";
+import useGlobalContext from "../hooks/useGlobalContext";
 
 const CartItem = ({ id, title, price, img, amount }) => {
-  const { remove } = useGlobalContext();
+  const { remove, increase, decrease } = useGlobalContext();
   return (
     <div className="flex justify-around items-center w-3/12">
       <div className="flex flex-col justify-center items-center">
@@ -22,14 +22,14 @@ const CartItem = ({ id, title, price, img, amount }) => {
       <div>
         <p
           className="text-lg font-bold cursor-pointer"
-          onClick={() => console.log("increase")}
+          onClick={() => increase(id)}
         >
           +
         </p>
         <p className="text-sm select-none">{amount}</p>
         <p
           className="text-xl font-bold cursor-pointer"
-          onClick={() => console.log("decrease")}
+          onClick={() => decrease(id)}
         >
           -
         </p>

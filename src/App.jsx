@@ -1,13 +1,7 @@
-import CartContainer from "./components/CartContainer";
-import Navbar from "./components/Navbar";
-
 const App = () => {
   return (
-    <div className="h-screen">
-      <Navbar />
-      <CartContainer />
-    </div>
-  );
-};
+    <div>App</div>
+  )
+}
 
-export default App;
+export default App
